@@ -1,4 +1,4 @@
-package horstman.core.java.vol1.ch05;
+package horstman.core.java.vol1.ch06;
 
 public class Manager extends Employee implements Cloneable {
 

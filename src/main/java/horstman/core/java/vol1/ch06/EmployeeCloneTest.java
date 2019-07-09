@@ -1,6 +1,6 @@
 package horstman.core.java.vol1.ch06;
 
-public class CloneTest {
+public class EmployeeCloneTest {
     public static void main(String[] args) throws CloneNotSupportedException {
         var original = new Employee("John Q. Public", 50000);
         original.setHireDay(2000, 1,1);
