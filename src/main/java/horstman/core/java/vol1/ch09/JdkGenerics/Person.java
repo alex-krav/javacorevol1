@@ -12,4 +12,9 @@ public class Person {
         Person other = (Person) obj;
         return other.getName().equals(getName());
     }
+
+    @Override
+    public String toString() {
+        return getName();
+    }
 }

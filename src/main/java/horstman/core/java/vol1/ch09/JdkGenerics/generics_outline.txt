@@ -1,0 +1,110 @@
+JDK 12
+
+raw
+? - any type
+    W: set any
+    R: get any
+
+
+T - specific type
+? extends T
+    W: set T and sub-type
+    R: get T
+
+
+L extends T (method)
+    W: set T and sub-type
+    R: get T and sub-type
+
+
+? super T
+    W: set any
+    R: get T and parent-type
+
+
+PECS
+    Collections
+        public static <T> int binarySearch(List<? extends T> list, T key, Comparator<? super T> c)
+            T in comparator is same or parent to T in list
+
+
+javac.util.GraphUtils
+    public static <D, N extends TarjanNode<D, N>> List<? extends List<? extends N>> tarjan(Iterable<? extends N> nodes)
+        T extends List<T>
+            List or sub-type of T or sub-type
+
+Collections.UnmodifiableEntrySet
+    Set<? extends Map.Entry<? extends K, ? extends V>>
+        Set or sub-type of Map.Entry or sub-type of K or sub-type and V or sub-type
+
+Collections.min
+    public static <T extends Object & Comparable<? super T>> T min(Collection<? extends T> coll)
+        for efficiency: raw type will be replaced by first bound - Object
+            casts to Comparable will be added where necessary
+
+
+Self-bounding generics
+    class SelfBounded<T extends SelfBounded<T>> -> class A extends SelfBounded<A>
+        you want 'new A.set(new A())' [pass same class as param]
+            for that you want to 'class A extends SelfBounded<A>' [pass type param same as class using it]
+    class Enum< E extends Enum<E>>
+    interface BaseStream<T, S extends BaseStream<T, S>>
+    class TarjanNode<D, N extends TarjanNode<D, N>>
+
+    see also:
+        https://www.artima.com/weblogs/viewpost.jsp?thread=136394
+        http://www.angelikalanger.com/GenericsFAQ/FAQSections/TypeParameters.html#FAQ106
+
+------------------
+
+WILDCARD TYPES - ASM bytecode!!!
+    todo:
+        WildcardExtendsSuper vs
+        GenericsOutline
+
+	Pair<? extends Employee>
+		can pass to method: Pair<Manager> and Pair<Employee>
+			can call getFirst(),
+			but can't - setFirst() - param could be any type
+		wildcards with subtype bounds let you read from a generic object
+
+	Pair<? super Manager>
+		can pass Pair<Employee> and Pair<Object>
+			can call setFirst() with Manager or sub-type (eg Executive)
+			but can't getFirst() - no guarantee about returned typed - can be only Object
+		wildcards with supertype bounds let you write to a generic object
+
+	Pair<?> - Unbounded Wildcards
+		getFirst() can only be assigned to Object
+		setFirst() can never be called, even with Object, but with null
+			can check null references
+
+	Wildcard Capture
+		public static void swap(Pair<?> p)
+			public static <T> void swapHelper(Pair<T> p) - T will capture "?"
+
+------------------
+
+how-to
+    declaration:
+        - class
+        - field
+        - method param
+        - variable
+        - generic method
+
+    try above with
+        - raw
+        - ?
+        - T
+        - Wildcard Capture (swap, swapHelper)
+        - ? extends T
+        - L extends T
+        - ? super T
+        - class Enum< E extends Enum<E>>
+
+    validate experience with
+        - keep (horstmann)
+        - evernote (eckel)
+
+EOF

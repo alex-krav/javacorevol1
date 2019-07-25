@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class CollectionTest {
     public static void main(String[] args) {
-        /** raw */
+        System.out.println("*** raw ***");
         List rawList = new ArrayList();
         rawList.add(new Employee());
         rawList.add(new Manager());
@@ -21,7 +21,7 @@ public class CollectionTest {
         Manager manager = (Manager) rawList.get(1);
         System.out.println(manager);
 
-        /** T */
+        System.out.println("*** T ***");
         List<Employee> concreteList = new ArrayList<>();
         concreteList.add(new Employee());
         concreteList.add(new Manager());
@@ -30,7 +30,7 @@ public class CollectionTest {
         System.out.println(concreteList);
 //        Student student = (Student) concreteList.get(1);
 
-        /** ? */
+        System.out.println("*** ? ***");
         System.out.println(
             concreteList.containsAll(
                     List.of(new Person(), new Employee(), new Student(), new Manager())));
@@ -38,7 +38,7 @@ public class CollectionTest {
             concreteList.containsAll(
                     List.of(new Employee(), new Manager())));
 
-        /** ? extends T */
+        System.out.println("*** ? extends T ***");
         concreteList.addAll(List.of(new Employee(), new Manager()));
         System.out.println(concreteList);
     }
