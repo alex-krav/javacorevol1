@@ -10,7 +10,7 @@ public class NotSelfBounded<T> {
 
     public static void main(String[] args) {
         A2 a = new A2();
-        A2 a1 = (A2) a.set(new A2()); // cannot set NotSelfBounded<A2> to A2
+        A2 a1 = a.set(new A2()).get(); // cannot set NotSelfBounded<A2> to A2
 
         E2 e = new E2();
 //        E2 e1 = e.set(new E2()); // D2 expected

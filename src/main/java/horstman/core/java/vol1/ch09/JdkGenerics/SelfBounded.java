@@ -10,7 +10,7 @@ class SelfBounded<T extends SelfBounded<T>> {
 
     public static void main(String[] args) {
         A a = new A();
-        A a1 = (A) a.set(new A());
+        A a1 = a.set(new A()).get();
 
         C c = new C();
         C c1 = (C) c.set(new C());

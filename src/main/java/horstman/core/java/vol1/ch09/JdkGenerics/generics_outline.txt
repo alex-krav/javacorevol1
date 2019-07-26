@@ -1,26 +1,30 @@
 JDK 12
 
 raw
-? - any type
-    W: set any
-    R: get any
+    R: List<any>
+    W: List<any>
 
+? - any type
+    R: List<any>;           Object
+    W: List<any>;           nothing
 
 T - specific type
-? extends T
-    W: set T and sub-type
-    R: get T
+    R: List<T>;             T
+    W: List<T>;             T
 
+? extends T (get - producer)
+    W: List<T and sub>;     nothing
+    R: List<T and above>;   T and above
 
-L extends T (method)
-    W: set T and sub-type
-    R: get T and sub-type
+L extends T
+    W: List<T>
+    R: List<T and above>
 
+? super T (set - consumer)
+    W: List<T and above>;   T and sub
+    R: List<any>;           Object
 
-? super T
-    W: set any
-    R: get T and parent-type
-
+----------------------------
 
 PECS
     Collections
@@ -57,54 +61,33 @@ Self-bounding generics
 
 ------------------
 
-WILDCARD TYPES - ASM bytecode!!!
-    todo:
-        WildcardExtendsSuper vs
-        GenericsOutline
-
-	Pair<? extends Employee>
-		can pass to method: Pair<Manager> and Pair<Employee>
-			can call getFirst(),
-			but can't - setFirst() - param could be any type
-		wildcards with subtype bounds let you read from a generic object
-
-	Pair<? super Manager>
-		can pass Pair<Employee> and Pair<Object>
-			can call setFirst() with Manager or sub-type (eg Executive)
-			but can't getFirst() - no guarantee about returned typed - can be only Object
-		wildcards with supertype bounds let you write to a generic object
-
-	Pair<?> - Unbounded Wildcards
-		getFirst() can only be assigned to Object
-		setFirst() can never be called, even with Object, but with null
-			can check null references
-
-	Wildcard Capture
-		public static void swap(Pair<?> p)
-			public static <T> void swapHelper(Pair<T> p) - T will capture "?"
-
-------------------
-
 how-to
     declaration:
-        - class
-        - field
-        - method param
-        - variable
-        - generic method
+        + variable1
+        + variable2
+
+        + class
+            + method param of getter/setter
+                variable1 -> set to class [Person, Employee, Student, Manager]
+                get from class -> variable2
+
+        + field
+            + method param of getter/setter
+                variable1 -> set to class
+                get from class -> variable2
+
+        + static generic method for class
+            variable1 -> set to method
+            get from method -> variable2
 
     try above with
-        - raw
-        - ?
-        - T
-        - Wildcard Capture (swap, swapHelper)
-        - ? extends T
-        - L extends T
-        - ? super T
-        - class Enum< E extends Enum<E>>
-
-    validate experience with
-        - keep (horstmann)
-        - evernote (eckel)
+        + raw
+        + T
+        + ?
+        + Wildcard Capture (swap, swapHelper)
+        + ? extends T
+        + L extends T
+        + ? super T
+        + class Enum< E extends Enum<E>>
 
 EOF
