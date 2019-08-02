@@ -1,7 +1,8 @@
 package horstman.core.java.vol1.ch12;
 
 public class ConditionBankTest {
-    public static final int NACCOUNTS = 100;
+//    public static final int NACCOUNTS = 100;
+    public static final int NACCOUNTS = 2;
     public static final int INITIAL_BALANCE = 1000;
     public static final int MAX_AMOUNT = 1000;
     public static final int DELAY = 10;
@@ -20,7 +21,7 @@ public class ConditionBankTest {
                     }
                 } catch (InterruptedException ignored) {}
             };
-            var t = new Thread(r);
+            var t = new Thread(r, "Bank " + (i + 1));
             t.start();
         }
     }

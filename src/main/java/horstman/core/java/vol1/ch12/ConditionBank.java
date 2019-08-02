@@ -18,18 +18,20 @@ public class ConditionBank {
     }
 
     public void transfer(int from, int to, double amount) throws InterruptedException {
+        System.out.println(Thread.currentThread().getName() + " entering transfer()");
 
         bankLock.lock();
         try {
             while (accounts[from] < amount)
                 sufficientFunds.await();
 
-            System.out.print(Thread.currentThread());
+            System.out.println(Thread.currentThread().getName() + " continuous after condition.await()");
             accounts[from] -= amount;
             System.out.printf(" %10.2f from %d to %d", amount, from, to);
             accounts[to] += amount;
             System.out.printf(" Total Balance: %10.2f%n", getTotalBalance());
 
+            System.out.println(Thread.currentThread().getName() + " is about to call condition.signallAll()");
             sufficientFunds.signalAll();
         } finally {
             bankLock.unlock();
