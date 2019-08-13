@@ -1,4 +1,4 @@
-package horstman.core.java.vol2;
+package horstman.core.java.vol2.ch01_Streams;
 
 import java.util.ArrayList;
 import java.util.Arrays;
