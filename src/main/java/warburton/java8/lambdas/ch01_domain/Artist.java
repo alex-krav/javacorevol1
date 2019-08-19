@@ -1,4 +1,4 @@
-package warburton.java8.lambdas.ch03_Streams;
+package warburton.java8.lambdas.ch01_domain;
 
 import java.util.ArrayList;
 import java.util.Collections;

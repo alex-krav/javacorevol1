@@ -1,5 +1,7 @@
 package warburton.java8.lambdas.ch03_Streams;
 
+import warburton.java8.lambdas.ch01_domain.Artist;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
