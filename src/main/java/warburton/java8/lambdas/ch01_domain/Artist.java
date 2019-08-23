@@ -14,6 +14,10 @@ public final class Artist {
     private List<Artist> members;
     private String nationality;
 
+    public Artist(String name) {
+        this(name, "ukrainian");
+    }
+
     public Artist(String name, String nationality) {
         this(name, Collections.emptyList(), nationality);
     }
